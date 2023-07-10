@@ -15,10 +15,11 @@ import {
 import { Context } from 'src/common/interfaces/context.interface';
 import { Telegraf } from 'telegraf';
 import { UpdateType as TelegrafUpdateType } from 'telegraf/typings/telegram-types';
-import { BotService } from './app.service';
+import { AppService } from './app.service';
 import { TelegrafExceptionFilter } from 'src/common/filters/telegraf-exception.filter';
-import { MENU_MAIN } from './common/common.constants';
+import { MENU_BOOK, MENU_MAIN } from './common/common.constants';
 import { UpdateType } from './common/decorators/update-type.decorator';
+import { ReverseTextPipe } from './pipes/reverse-text.pipe';
 
 @Update()
 //@UseInterceptors(StoreUserInterceptor)
@@ -26,8 +27,13 @@ import { UpdateType } from './common/decorators/update-type.decorator';
 export class AppUpdate {
   constructor(
     @InjectBot(TELEGRAF_BOT_NAME) private readonly bot: Telegraf<Context>,
-    private readonly botService: BotService,
+    private readonly botService: AppService,
   ) {}
+
+  @Command('book')
+  async onBookCommand(@Ctx() ctx: Context): Promise<void> {
+    await ctx.scene.enter(MENU_BOOK)
+  }
 
   @Start()
   async onStart(@Ctx() ctx: Context): Promise<void> {

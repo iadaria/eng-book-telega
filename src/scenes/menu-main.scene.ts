@@ -1,9 +1,8 @@
 import { Action, Command, Ctx, Hears, Scene, SceneEnter, SceneLeave, Sender } from 'nestjs-telegraf';
+import { MENU_MAIN } from 'src/common/common.constants';
+import { Context } from 'src/common/interfaces/context.interface';
 import { Update } from 'telegraf/typings/core/types/typegram';
 import { SceneContext } from 'telegraf/typings/scenes';
-
-import { MENU_MAIN } from '../bot.constants';
-import { Context } from '../../common/interfaces/context.interface';
 
 @Scene(MENU_MAIN)
 export class MenuMainScene {

@@ -4,6 +4,8 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import * as configs from './configs';
 import { AppService } from './app.service';
 import { AppUpdate } from './app.update';
+import { MenuMainScene } from './scenes/menu-main.scene';
+import { BookMenuScene } from './scenes/book-menu.screne';
 
 @Module({
   imports: [
@@ -11,6 +13,6 @@ import { AppUpdate } from './app.update';
     TelegrafModule.forRootAsync(configs.telegramAsyncOptions()),
   ],
   controllers: [],
-  providers: [AppService, AppUpdate],
+  providers: [AppService, AppUpdate, MenuMainScene, BookMenuScene],
 })
 export class AppModule {}
