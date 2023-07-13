@@ -16,6 +16,7 @@ import {
 import { SceneContext } from 'telegraf/typings/scenes';
 import { MENU_BOOK } from 'src/common/common.constants';
 import { CHAPTER_01 } from 'src/data/chapter01';
+import { Input } from 'telegraf';
 
 const inlineKeyboard: InlineKeyboardButton[][] = [
   [{ text: 'Слова', callback_data: 'words' }],
@@ -43,10 +44,19 @@ export class BookMenuScene {
   }
 
   @Command(['text'])
-  async onText(ctx: Context): Promise<void> {
+  async onText(ctx: Context) {
+    await ctx.replyWithVoice(Input.fromLocalFile('src/data/ch01_1.ogg'));
     await ctx.reply(CHAPTER_01.engText, {
       reply_markup: { inline_keyboard: inlineKeyboard },
     });
+    //await ctx.replyWithVoice({ source: 'src/data/test2.mp3'})
+   //await ctx.sendPhoto(Input.fromLocalFile('src/data/img.jpg'));
+    // await ctx.(Input.fromLocalFile('src/data/ch01_1.ogg'), {
+    //   caption: CHAPTER_01.engText,
+    //   reply_markup: { inline_keyboard: inlineKeyboard },
+    //   thumb: Input.fromLocalFile('src/data/img.jpg')
+    // });
+   //ctx.sendAudio(Input.fromLocalFile('src/data/test1.mp3'));
   }
 
   @Action(/words|yandex|author/)
@@ -56,7 +66,7 @@ export class BookMenuScene {
     const cbQuery = context.update.callback_query;
     const userAnswer = 'data' in cbQuery ? cbQuery.data : null;
     const text = userAnswer ? CHAPTER_01[userAnswer] : '';
-    
+
     await context.editMessageText(CHAPTER_01.engText + text, {
       reply_markup: { inline_keyboard: inlineKeyboard },
     });

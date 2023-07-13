@@ -13,11 +13,11 @@ export const telegramAsyncOptions = (): TelegrafModuleAsyncOptions => ({
       middlewares: [sessionMiddleware],
       //include: [BotModule],
       token: config.get<string>('TELEGRAM_TOKEN'),
-      options: {
-        telegram: {
-          testEnv: config.get<boolean>('TELEGRAM_TEST'),
-        },
-      },
+      // options: {
+      //   telegram: {
+      //     testEnv: !!config.get<boolean>('TELEGRAM_TEST'),
+      //   },
+      // },
     };
   },
   inject: [ConfigService],
