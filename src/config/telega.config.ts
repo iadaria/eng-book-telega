@@ -8,7 +8,6 @@ export const telegramAsyncOptions = (): TelegrafModuleAsyncOptions => ({
   imports: [ConfigModule],
   botName: TELEGRAF_BOT_NAME,
   useFactory: (config: ConfigService) => {
-    console.log({ config });
     return {
       middlewares: [sessionMiddleware],
       //include: [BotModule],

@@ -49,25 +49,20 @@ export class BookMenuScene {
     await ctx.reply(CHAPTER_01.engText, {
       reply_markup: { inline_keyboard: inlineKeyboard },
     });
-    //await ctx.replyWithVoice({ source: 'src/data/test2.mp3'})
-   //await ctx.sendPhoto(Input.fromLocalFile('src/data/img.jpg'));
-    // await ctx.(Input.fromLocalFile('src/data/ch01_1.ogg'), {
-    //   caption: CHAPTER_01.engText,
-    //   reply_markup: { inline_keyboard: inlineKeyboard },
-    //   thumb: Input.fromLocalFile('src/data/img.jpg')
-    // });
-   //ctx.sendAudio(Input.fromLocalFile('src/data/test1.mp3'));
   }
 
   @Action(/words|yandex|author/)
   async onAnswer(
-    @Ctx() context: SceneContext & { update: Update.CallbackQueryUpdate },
+    @Ctx() ctx: SceneContext & { update: Update.CallbackQueryUpdate },
   ) {
-    const cbQuery = context.update.callback_query;
+    console.log('session', ctx.session, ctx.session.__scenes.state)
+    
+    const cbQuery = ctx.update.callback_query;
     const userAnswer = 'data' in cbQuery ? cbQuery.data : null;
+    //ctx.session?.prevAnswer = userAnswer;
     const text = userAnswer ? CHAPTER_01[userAnswer] : '';
 
-    await context.editMessageText(CHAPTER_01.engText + text, {
+    await ctx.editMessageText(CHAPTER_01.engText + text, {
       reply_markup: { inline_keyboard: inlineKeyboard },
     });
   }
